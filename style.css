@@ -1,0 +1,432 @@
+/* ==================== Global Styles ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #ADD8E6 0%, #87CEEB 50%, #87CEEB 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* ==================== Connection Bar ==================== */
+.connection-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%);
+    padding: 10px 20px;
+    text-align: center;
+    border-bottom: 2px solid #4DB8FF;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(77, 184, 255, 0.2);
+}
+
+.connection-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0066FF;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.online {
+    background-color: #00CC00;
+    box-shadow: 0 0 10px rgba(0, 204, 0, 0.6);
+}
+
+.status-dot.offline {
+    background-color: #FF6B6B;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ==================== Language Switcher ==================== */
+.language-switcher {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 999;
+}
+
+.lang-btn {
+    background: white;
+    color: #0066FF;
+    border: 2px solid #0066FF;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 102, 255, 0.2);
+}
+
+.lang-btn.active {
+    background: #0066FF;
+    color: white;
+    transform: scale(1.05);
+}
+
+.lang-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+/* ==================== Main Container ==================== */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 102, 255, 0.15);
+    max-width: 600px;
+    width: 95%;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+/* ==================== Header & Logo ==================== */
+.header {
+    margin-bottom: 40px;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    filter: drop-shadow(0 4px 12px rgba(77, 184, 255, 0.3));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.title-ar, .title-en {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0066FF;
+    margin: 15px 0 5px;
+    text-shadow: 2px 2px 4px rgba(0, 102, 255, 0.1);
+}
+
+.subtitle-ar, .subtitle-en {
+    font-size: 18px;
+    color: #4DB8FF;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* ==================== Content Section ==================== */
+.content {
+    margin: 30px 0;
+}
+
+.section-title-ar, .section-title-en {
+    font-size: 24px;
+    color: #0066FF;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.description-ar, .description-en {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* ==================== Input Group ==================== */
+.input-group {
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ADD8E6;
+    border-radius: 12px;
+    background: #F8FBFF;
+    color: #333;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+input:focus {
+    outline: none;
+    border-color: #0066FF;
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.2);
+    background: white;
+}
+
+input::placeholder {
+    color: #ADD8E6;
+}
+
+/* ==================== Buttons ==================== */
+.btn-primary {
+    background: linear-gradient(135deg, #0066FF 0%, #0099FF 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+button {
+    font-family: inherit;
+}
+
+/* ==================== Messages ==================== */
+.message {
+    margin: 20px 0;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.loading {
+    background: #E8F4FD;
+    color: #0066FF;
+    border-left: 4px solid #0066FF;
+}
+
+.message.error {
+    background: #FFE8E8;
+    color: #FF0000;
+    border-left: 4px solid #FF0000;
+}
+
+.message.success {
+    background: #E8FFE8;
+    color: #00CC00;
+    border-left: 4px solid #00CC00;
+}
+
+/* ==================== Info Box ==================== */
+.info-box {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #ADD8E6;
+}
+
+.info-title-ar, .info-title-en {
+    font-size: 18px;
+    color: #0066FF;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.features {
+    list-style: none;
+    text-align: right;
+}
+
+.feature-ar, .feature-en {
+    font-size: 14px;
+    color: #555;
+    padding: 8px 0;
+    line-height: 1.8;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 30px 20px;
+        margin-top: 100px;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .title-ar, .title-en {
+        font-size: 26px;
+    }
+
+    .subtitle-ar, .subtitle-en {
+        font-size: 16px;
+    }
+
+    .section-title-ar, .section-title-en {
+        font-size: 20px;
+    }
+
+    .description-ar, .description-en {
+        font-size: 15px;
+    }
+
+    input, .btn-primary {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    .language-switcher {
+        top: 60px;
+        right: 10px;
+    }
+
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        width: 100%;
+        padding: 25px 15px;
+        margin-top: 110px;
+        margin-bottom: 0;
+        border-radius: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .title-ar, .title-en {
+        font-size: 22px;
+    }
+
+    .subtitle-ar, .subtitle-en {
+        font-size: 14px;
+    }
+
+    .section-title-ar, .section-title-en {
+        font-size: 18px;
+    }
+
+    .description-ar, .description-en {
+        font-size: 14px;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .features {
+        text-align: right;
+    }
+
+    .feature-ar, .feature-en {
+        font-size: 13px;
+    }
+
+    .connection-bar {
+        padding: 8px 10px;
+    }
+
+    .connection-indicator {
+        font-size: 12px;
+    }
+
+    .language-switcher {
+        right: 10px;
+        top: 60px;
+    }
+
+    .lang-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 320px) {
+    .title-ar, .title-en {
+        font-size: 18px;
+    }
+
+    .logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .input-group {
+        gap: 10px;
+    }
+
+    .features {
+        padding: 0 5px;
+    }
+}

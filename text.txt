@@ -1,0 +1,7 @@
+text
+C:\my-clinic-app\
+│
+├── index.html          (صفحة تسجيل الدخول)
+├── dashboard.html      (عرض الفحوصات)
+├── style.css           (شكل التطبيق)
+└── script.js           (المنطق والربط مع SonicPACS)
