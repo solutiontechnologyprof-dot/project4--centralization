@@ -22,7 +22,7 @@ const LANGUAGE = {
     en: {
         title: 'Radiology Center Group',
         subtitle: 'for Medical Examinations',
-        sectionTitle: 'My Examinations Portal',
+        sectionTitle: 'Examinations Portal',
         description: 'Enter your patient code\nYou can find it on the exam image or at the top of the receipt',
         buttonText: '🔍 View My Exams',
         loading: 'Loading examinations...',
