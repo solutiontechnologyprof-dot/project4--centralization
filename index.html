@@ -8,6 +8,9 @@
     <title>دار الاشعه - Radiology Center</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body>
     <!-- Connection Status Bar -->
@@ -21,38 +24,15 @@
 
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <button id="langArabic" class="lang-btn active" onclick="switchLanguage('ar')">العربية</button>
-        <button id="langEnglish" class="lang-btn" onclick="switchLanguage('en')">English</button>
+        <button id="langArabic" class="lang-btn active">العربية</button>
+        <button id="langEnglish" class="lang-btn">English</button>
     </div>
 
     <!-- Main Container -->
     <div class="container">
         <!-- Logo and Header -->
         <div class="header">
-            <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Blue Circle Background -->
-                <circle cx="100" cy="100" r="95" fill="#ADD8E6" stroke="#4DB8FF" stroke-width="3"/>
-                
-                <!-- X-Ray Symbol (Stylized) -->
-                <!-- Horizontal line -->
-                <line x1="40" y1="100" x2="160" y2="100" stroke="#0066FF" stroke-width="4" stroke-linecap="round"/>
-                
-                <!-- Vertical line -->
-                <line x1="100" y1="40" x2="100" y2="160" stroke="#0066FF" stroke-width="4" stroke-linecap="round"/>
-                
-                <!-- Diagonal lines for X-ray effect -->
-                <line x1="60" y1="60" x2="140" y2="140" stroke="#0099FF" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-                <line x1="140" y1="60" x2="60" y2="140" stroke="#0099FF" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-                
-                <!-- Center circle -->
-                <circle cx="100" cy="100" r="15" fill="#0066FF"/>
-                
-                <!-- Outer decorative circles -->
-                <circle cx="100" cy="50" r="8" fill="#0099FF" opacity="0.8"/>
-                <circle cx="150" cy="100" r="8" fill="#0099FF" opacity="0.8"/>
-                <circle cx="100" cy="150" r="8" fill="#0099FF" opacity="0.8"/>
-                <circle cx="50" cy="100" r="8" fill="#0099FF" opacity="0.8"/>
-            </svg>
+            <img class="logo" src="icons/dar-logo.png" alt="Dar Al-Ash'aa Logo">
             
             <h1 class="title-ar">مجموعة دار الاشعه</h1>
             <h1 class="title-en" style="display:none;">Radiology Center Group</h1>
@@ -66,12 +46,12 @@
             <h2 class="section-title-ar">بوابة فحوصاتي</h2>
             <h2 class="section-title-en" style="display:none;">My Examinations Portal</h2>
             
-            <p class="description-ar">أدخل رقم هاتفك أو كود المريض لعرض فحوصاتك</p>
-            <p class="description-en" style="display:none;">Enter your phone number or patient code to view your examinations</p>
+<p class="description-ar">ادخل كود المريض<br>ستجده فى صورة الفحص او بأعلى ايصال الاستلام</p>
+<p class="description-en" style="display:none;">Enter your patient code<br>You can find it on the exam image or at the top of the receipt</p>
             
             <div class="input-group">
-                <input type="text" id="patientCode" placeholder-ar="رقم الهاتف أو كود المريض" placeholder-en="Phone number or patient code" placeholder="رقم الهاتف أو كود المريض">
-                <button onclick="fetchStudies()" class="btn-primary">
+                <input type="text" id="patientCode" placeholder-ar="كود المريض" placeholder-en="Patient code" placeholder="كود المريض">
+                <button id="fetchStudiesBtn" class="btn-primary">
                     <span class="btn-text-ar">🔍 عرض فحوصاتي</span>
                     <span class="btn-text-en" style="display:none;">🔍 View My Exams</span>
                 </button>
@@ -90,11 +70,12 @@
             <h3 class="info-title-ar">✨ المميزات</h3>
             <h3 class="info-title-en" style="display:none;">✨ Features</h3>
             <ul class="features">
-                <li class="feature-ar">🌐 يعمل أون لاين وأوف لاين</li>
-                <li class="feature-en" style="display:none;">🌐 Works Online and Offline</li>
                 
                 <li class="feature-ar">📱 متوافق مع جميع الأجهزة (ويندوز، أندرويد، آيفون، لينكس)</li>
                 <li class="feature-en" style="display:none;">📱 Compatible with all devices (Windows, Android, iPhone, Linux)</li>
+                
+                <li class="feature-ar">🌐 يدعم اللغه العربيه والانجليزيه</li>
+                <li class="feature-en" style="display:none;">🌐 Supports Arabic and English</li>
                 
                 <li class="feature-ar">🔒 آمن وموثوق</li>
                 <li class="feature-en" style="display:none;">🔒 Secure and Reliable</li>
@@ -103,6 +84,16 @@
                 <li class="feature-en" style="display:none;">⚡ Fast and Easy to Use</li>
             </ul>
         </div>
+
+        <!-- Install Button -->
+        <button id="installBtn" class="install-btn" style="display:none;">
+            <span class="install-text-ar">📲 لتثبيت البرنامج اضغط هنا</span>
+            <span class="install-text-en" style="display:none;">📲 Install the App</span>
+        </button>
+        <p id="iosGuide" class="ios-guide" style="display:none;">
+            <span class="ios-guide-ar">📱 لتثبيت البرنامج: اضغط على مشاركة <strong>Share</strong> ← <strong>Add to Home Screen</strong></span>
+            <span class="ios-guide-en" style="display:none;">📱 To install: Tap <strong>Share</strong> ← <strong>Add to Home Screen</strong></span>
+        </p>
     </div>
 
     <script src="script.js"></script>
