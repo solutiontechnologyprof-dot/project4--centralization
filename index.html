@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
     <!-- Connection Status Bar -->
@@ -44,17 +45,33 @@
         <!-- Main Content -->
         <div class="content">
             <h2 class="section-title-ar">بوابة فحوصاتي</h2>
-            <h2 class="section-title-en" style="display:none;">My Examinations Portal</h2>
+            <h2 class="section-title-en" style="display:none;">Examinations Portal</h2>
             
 <p class="description-ar">ادخل كود المريض<br>ستجده فى صورة الفحص او بأعلى ايصال الاستلام</p>
 <p class="description-en" style="display:none;">Enter your patient code<br>You can find it on the exam image or at the top of the receipt</p>
             
             <div class="input-group">
-                <input type="text" id="patientCode" placeholder-ar="كود المريض" placeholder-en="Patient code" placeholder="كود المريض">
+                <div class="input-row">
+                    <input type="text" id="patientCode" placeholder-ar="كود المريض" placeholder-en="Patient code" placeholder="كود المريض">
+                    <button id="qrBtn" class="qr-btn" title="مسح QR - Scan QR">📷</button>
+                </div>
                 <button id="fetchStudiesBtn" class="btn-primary">
                     <span class="btn-text-ar">🔍 عرض فحوصاتي</span>
                     <span class="btn-text-en" style="display:none;">🔍 View My Exams</span>
                 </button>
+            </div>
+
+            <div id="qrScanner" class="qr-scanner-overlay" style="display:none;">
+                <div class="qr-scanner-box">
+                    <div class="qr-scanner-header">
+                        <span class="qr-title-ar">📷 مسح كود QR</span>
+                        <span class="qr-title-en" style="display:none;">📷 Scan QR Code</span>
+                        <button id="qrCloseBtn" class="qr-close-btn">&times;</button>
+                    </div>
+                    <div id="qrReader"></div>
+                    <p class="qr-hint-ar">وجه الكاميرا نحو كود QR الخاص بالمريض</p>
+                    <p class="qr-hint-en" style="display:none;">Point the camera at the patient's QR code</p>
+                </div>
             </div>
             
             <div id="loading" class="message loading" style="display:none;">
@@ -84,16 +101,6 @@
                 <li class="feature-en" style="display:none;">⚡ Fast and Easy to Use</li>
             </ul>
         </div>
-
-        <!-- Install Button -->
-        <button id="installBtn" class="install-btn" style="display:none;">
-            <span class="install-text-ar">📲 لتثبيت البرنامج اضغط هنا</span>
-            <span class="install-text-en" style="display:none;">📲 Install the App</span>
-        </button>
-        <p id="iosGuide" class="ios-guide" style="display:none;">
-            <span class="ios-guide-ar">📱 لتثبيت البرنامج: اضغط على مشاركة <strong>Share</strong> ← <strong>Add to Home Screen</strong></span>
-            <span class="ios-guide-en" style="display:none;">📱 To install: Tap <strong>Share</strong> ← <strong>Add to Home Screen</strong></span>
-        </p>
     </div>
 
     <script src="script.js"></script>

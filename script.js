@@ -35,11 +35,10 @@ const LANGUAGE = {
     }
 };
 
-let currentLang = 'ar';
-let deferredPrompt = null;
+let currentLang = localStorage.getItem('lang') || 'ar';
 
 window.addEventListener('load', () => {
-    document.body.classList.add('lang-ar');
+    document.body.classList.add('lang-' + currentLang);
     setLanguage(currentLang);
     updateConnectionStatus();
     setupNetworkListeners();
@@ -47,23 +46,14 @@ window.addEventListener('load', () => {
     document.getElementById('langArabic').addEventListener('click', () => switchLanguage('ar'));
     document.getElementById('langEnglish').addEventListener('click', () => switchLanguage('en'));
     document.getElementById('fetchStudiesBtn').addEventListener('click', fetchStudies);
-    setupInstallButton();
-});
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('installBtn').style.display = 'block';
-});
-
-window.addEventListener('appinstalled', () => {
-    deferredPrompt = null;
-    document.getElementById('installBtn').style.display = 'none';
+    document.getElementById('qrBtn').addEventListener('click', openQrScanner);
+    document.getElementById('qrCloseBtn').addEventListener('click', closeQrScanner);
 });
 
 function switchLanguage(lang) {
     if (lang !== 'ar' && lang !== 'en') return;
     currentLang = lang;
+    localStorage.setItem('lang', lang);
     document.documentElement.lang = lang;
     document.body.classList.toggle('lang-ar', lang === 'ar');
     document.body.classList.toggle('lang-en', lang === 'en');
@@ -84,8 +74,8 @@ function setLanguage(lang) {
     document.querySelectorAll('.feature-ar, .feature-en').forEach(el => el.style.display = el.classList.contains(`feature-${lang}`) ? 'list-item' : 'none');
     document.querySelectorAll('.loader-ar, .loader-en').forEach(el => el.style.display = el.classList.contains(`loader-${lang}`) ? 'block' : 'none');
     document.querySelectorAll('.status-text-ar, .status-text-en').forEach(el => el.style.display = el.classList.contains(`status-text-${lang}`) ? 'inline' : 'none');
-    document.querySelectorAll('.install-text-ar, .install-text-en').forEach(el => el.style.display = el.classList.contains(`install-text-${lang}`) ? 'inline' : 'none');
-    document.querySelectorAll('.ios-guide-ar, .ios-guide-en').forEach(el => el.style.display = el.classList.contains(`ios-guide-${lang}`) ? 'inline' : 'none');
+    document.querySelectorAll('.qr-title-ar, .qr-title-en').forEach(el => el.style.display = el.classList.contains(`qr-title-${lang}`) ? 'inline' : 'none');
+    document.querySelectorAll('.qr-hint-ar, .qr-hint-en').forEach(el => el.style.display = el.classList.contains(`qr-hint-${lang}`) ? 'inline' : 'none');
 
     const input = document.getElementById('patientCode');
     const placeholder = lang === 'ar' ? input.getAttribute('placeholder-ar') : input.getAttribute('placeholder-en');
@@ -187,22 +177,31 @@ function showSuccess(message) {
     }, 5000);
 }
 
-function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+let html5QrCode = null;
+
+function openQrScanner() {
+    const overlay = document.getElementById('qrScanner');
+    overlay.style.display = 'flex';
+
+    html5QrCode = new Html5Qrcode('qrReader');
+    html5QrCode.start(
+        { facingMode: 'environment' },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        (decodedText) => {
+            document.getElementById('patientCode').value = decodedText;
+            closeQrScanner();
+            fetchStudies();
+        },
+        () => {}
+    ).catch(() => {});
 }
 
-function setupInstallButton() {
-    document.getElementById('installBtn').addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const result = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        document.getElementById('installBtn').style.display = 'none';
-    });
-
-    if (isIOS() && 'serviceWorker' in navigator) {
-        document.getElementById('iosGuide').style.display = 'block';
+function closeQrScanner() {
+    if (html5QrCode) {
+        try { html5QrCode.stop().then(() => html5QrCode.clear()).catch(() => {}); } catch(e) {}
+        html5QrCode = null;
     }
+    document.getElementById('qrScanner').style.display = 'none';
 }
 
 function registerServiceWorker() {
